@@ -1,6 +1,8 @@
 package kg.megalab.comp_service.controller;
 
+import kg.megalab.comp_service.model.dto.ModelRamScreenDto;
 import kg.megalab.comp_service.model.dto.ModelSpeedHdDto;
+import kg.megalab.comp_service.service.LaptopService;
 import kg.megalab.comp_service.service.PcService;
 import kg.megalab.comp_service.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,8 @@ public class TaskController {
     private PcService pcService;
     @Autowired
     private ProductService productService;
+    @Autowired
+    private LaptopService laptopService;
 
     @GetMapping("/1")
     public ResponseEntity<?> findModelSpeedHdDtosByPrice(@RequestParam double price){
@@ -31,6 +35,12 @@ public class TaskController {
     public ResponseEntity<?> task2(@RequestParam String type){
         List<String> makers = productService.findMakersByType(type);
         return ResponseEntity.ok(makers);
+    }
+
+    @GetMapping("/3")
+    public ResponseEntity<?> task3(@RequestParam double price){
+        List<ModelRamScreenDto> modelRamScreenDtos = laptopService.findModelRamScreenDtosByPrice(price);
+        return ResponseEntity.ok(modelRamScreenDtos);
     }
 
 
